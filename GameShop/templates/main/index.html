@@ -1,0 +1,63 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+    {% load static %}
+    <link type='text/css'  rel="stylesheet" href="{% static 'style.css' %}" />
+</head>
+<body>
+<div class="row">
+    {% block fomat %}
+    <form method="GET" action="">
+        <label for="page_size">Количество постов на странице:</label>
+        <select name="page_size" id="page_size" onchange="this.form.submit()">
+            <option value="3" {% if page_obj.paginator.page_size == 3 %}selected{% endif %}>3</option>
+            <option value="5" {% if page_obj.paginator.page_size == 5 %}selected{% endif %}>5</option>
+            <option value="10" {% if page_obj.paginator.page_size == 10 %}selected{% endif %}>10</option>
+        </select>
+        <input type="hidden" name="page" value="{{ page_obj.number }}">
+    </form>
+    {% endblock %}
+    {% for post in page_obj %}
+    <div class="col-md-4">
+    <h2>{{ post.title }}</h2>
+    <p>{{  post.content  }}</p>
+    <p>{{ post.create_at  }}</p>
+    </div>
+    {% endfor %}
+</div>
+
+
+
+{% if page_obj.has_other_pages %}
+<nav class="list-page">
+    <ul>
+        {% if page_obj.has_previous %}
+        <li class="page-num">
+            <a href="?page{{ page_obj.previous_page_number }}">&lt;</a>
+        </li>
+        {% endif %}
+        {% for p in page_obj.paginator.page_range %}
+        {% if page_obj.number == p %}
+        <li class="page-num page-num-selected">{{ p }}</li>
+        {% elif p >= page_obj.number|add:-2 and p <= page_obj.number|add:2 %}
+        <li class="page-num">
+            <a href="?page={{ p }}">{{ p }}</a>
+        </li>
+        {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+        <li class="page-num">
+            <a href="?page={{ page_obj.next_page_number }}">&gt;</a>
+        </li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}
+
+</body>
+</html>

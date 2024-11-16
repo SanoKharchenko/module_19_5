@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Главная страница</title>
+</head>
+<body>
+    <pagename>
+        {% block pagename %}
+        <h1>Главная страница</h1>
+        {% endblock %}
+    </pagename>
+
+    <menu>
+        {% block menu %}
+        <h3><a href="/platform/">Главная</a></h3>
+        <h3><a href="/platform/games/">Магазин</a></h3>
+        <h3><a href="/platform/cart/">Корзина</a></h3>
+        {% endblock %}
+    </menu>
+
+    <reg>
+        {% block reg %}
+        <h3><a href="/sign_up_by_django/">Регистрация</a> </h3>
+        {% endblock %}
+    </reg>
+
+    <content>
+        {% block content %}
+            <h4>Тут пока пусто =)</h4>
+        {% endblock %}
+    </content>
+
+</body>
+</html>
